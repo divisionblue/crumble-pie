@@ -9,6 +9,7 @@ long_description = '\n\n'.join([
     ])
 
 install_requires = [
+    'flask-bootstrap',
     'numpy',
     'PIL',
     'setuptools',
