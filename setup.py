@@ -5,10 +5,11 @@ version = '0.1.dev'
 long_description = '\n\n'.join([
     open('README.rst').read(),
     open('CREDITS.rst').read(),
-    open('CHANGES.rst').read(),
+#    open('CHANGES.rst').read(),
     ])
 
 install_requires = [
+    'flask',
     'flask-bootstrap',
     'numpy',
     'PIL',
@@ -18,7 +19,7 @@ install_requires = [
 tests_require = [
     ]
 
-setup(name='radar',
+setup(name='crumble',
       version=version,
       description="TODO",
       long_description=long_description,
@@ -29,7 +30,7 @@ setup(name='radar',
       author_email='info@technokrat.nl',
       url='',
       license='BSD',
-      packages=['crumble-pi'],
+      packages=['crumble'],
       include_package_data=True,
       zip_safe=False,
       install_requires=install_requires,
@@ -37,6 +38,6 @@ setup(name='radar',
       extras_require = {'test': tests_require},
       entry_points={
           'console_scripts': [
-              #'runserver = runserver.',
+              'runserver = crumble.main:go',
           ]},
       )
