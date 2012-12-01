@@ -1,6 +1,6 @@
 Code documentation
 ==================
 
-.. automodule:: radar.views
+.. automodule:: crumble.main
    :members:
 

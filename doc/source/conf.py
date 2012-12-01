@@ -6,15 +6,12 @@
 
 import datetime
 
-project = "radar"
+project = "crumble"
 author = ""
 version = ""
 release = ""
 this_year = datetime.date.today().year
 copyright = '%s, %s' % (this_year, author)
-# Comment out one of these if we're a django project.
-#os.environ['DJANGO_SETTINGS_MODULE'] = 'radar.testsettings'
-#os.environ['DJANGO_SETTINGS_MODULE'] = 'radar.settings'
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

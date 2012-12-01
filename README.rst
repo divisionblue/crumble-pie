@@ -8,6 +8,6 @@ There is still a LOT to do on this project, so bear with us. But for the moment,
 > bin/buildout
 > bin/runserver
 
-You can also use the ``Vagrantfile`` and ``vagrant up`` if you like that sort of thing (we do).
-
 And you're good to go.
+
+You can also use the ``Vagrantfile`` and ``vagrant up`` if you like that sort of thing (we do).
