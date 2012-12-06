@@ -1,0 +1,66 @@
+/*importeer css */
+@import "bootstrap.min.css";
+@import "extra.css";
+@import "../js/lib/theme/default/style.css";
+
+/*
+ * Boostrap overrides / additions
+ */
+
+.nav li.disabled a {
+    color: #999;
+    pointer-events: none;
+}
+
+.navbar, .page-header {
+    padding-bottom: 0px;    
+    margin-bottom: 5px;    
+}
+
+.spacer {
+    margin-top: 20px;
+}
+
+.nomargin {
+    margin-left: 0px;    
+
+}
+    
+/*
+.navbar-inner {    
+    background-color: #FFF;
+
+    background-image: -moz-linear-gradient(top, #FFF, #DDD);
+    background-image: -ms-linear-gradient(top, #FFF, #DDD);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFF), to(#DDD));
+    background-image: -webkit-linear-gradient(top, #FFF, #DDD);
+    background-image: -o-linear-gradient(top, #FFF, #DDD);
+    background-image: linear-gradient(top, #FFF, #DDD);
+    background-repeat: repeat-x;
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF',    endColorstr='#DDD', GradientType=0);
+}
+*/
+
+/* 
+ * Openlayers styles
+ */
+.mapsmall {
+    width : 460px;
+    height : 460px;
+}
+
+.mapbig {
+    width : 768px;
+    height : 768px;
+}
+
+.map img {max-width:none;}
+
+#tags {
+    display: none;
+}
+
+#docs p {
+    margin-bottom: 0.5em;
+}
