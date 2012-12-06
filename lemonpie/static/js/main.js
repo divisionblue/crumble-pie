@@ -21,5 +21,12 @@ for (var layer in layers) {
     console.log(layer, layers[layer]);
 }
 
+var map = L.map('map').setView([52.4, 5.8], 9);
+console.log(map);
+
+L.tileLayer('http://{s}.tile.cloudmade.com/2a821ef633ec46428cbb11db251bac65/997/256/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        maxZoom: 18
+}).addTo(map);
 
 }); // end requirejs

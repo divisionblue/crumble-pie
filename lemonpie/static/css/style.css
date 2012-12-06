@@ -45,22 +45,8 @@
 /* 
  * Openlayers styles
  */
-.mapsmall {
-    width : 460px;
-    height : 460px;
-}
-
-.mapbig {
-    width : 768px;
-    height : 768px;
+#map {
+    height: 400px;
 }
 
 .map img {max-width:none;}
-
-#tags {
-    display: none;
-}
-
-#docs p {
-    margin-bottom: 0.5em;
-}

@@ -9,10 +9,18 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <!-- Le styles -->
-        <script type="text/javascript" data-main="/static/js/main.js" src="/static/js/require.js"></script>
-        <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+        <!-- leaflet shizzle, opnemen in style.css -->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
+        <![endif]-->
+        <!-- leaflet shizzle, opnemen in require.js -->
+        <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+               
+        <script type="text/javascript" data-main="static/js/main.js" src="static/js/require.js"></script>
+        <link rel="stylesheet" href="static/css/style.css" type="text/css">
 
+        <!-- Le styles -->
         <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,9 +31,11 @@
 
     <body>
         <div class="container">
-            <div class="hero-unit">
-                <h1>Suffer and crumble</h1>
-                <p class="lead">welcome to the future</p>
+            <div class="row">
+                <div class="span12">
+                    <h1>Suffer and crumble</h1>
+                    <p class="lead">welcome to the future</p>
+                </div>
             </div>
             <!-- ******** MESSAGES ******* -->
             <div class="row">
