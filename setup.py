@@ -14,6 +14,18 @@ install_requires = [
     'numpy',
     'PIL',
     'setuptools',
+    'Flask==0.9',
+    'Flask-DebugToolbar==0.7.1',
+    'Flask-Uploads==0.1.3',
+    'Flask-WTF==0.8',
+    'Jinja2==2.6',
+    'WTForms==1.0.2',
+    'Werkzeug==0.8.3',
+    'blinker==1.2',
+    'httplib2==0.7.6',
+    'ordereddict==1.1',
+    'requests==0.14.1',
+    'yolk==0.4.3',
     ],
 
 tests_require = [
@@ -39,5 +51,6 @@ setup(name='crumble',
       entry_points={
           'console_scripts': [
               'runserver = crumble.main:go',
+              'runlemon = run:main',
           ]},
       )
