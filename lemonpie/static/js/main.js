@@ -6,15 +6,16 @@ requirejs.config({
         'jquery' : 'lib/jquery',
         'underscore' : 'lib/underscore',
         'bootstrap': 'lib/bootstrap',
-        'openlayers': 'lib/OpenLayers'
+        'openlayers': 'lib/OpenLayers',
+        'stamen': 'http://maps.stamen.com/js/tile.stamen.js?v1.2.1'
     },
     shim: {
         'bootstrap' : {
             'deps' : ['jquery']
-        },
+        }
     }
 });
-require(['jquery', 'underscore', 'bootstrap', 'openlayers'], function ($, _) {
+require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function ($, _) {
 
     layers = jQuery.parseJSON(layers);
     var layer = null;
@@ -23,17 +24,49 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers'], function ($, _) {
         console.log(layer, layers[layer]);
     }
 
-    var map = L.map('map').setView([52.4, 5.8], 9);
+    // stamen maps
+    var toner = new L.StamenTileLayer("toner-lite");
 
-    // base layer
-    L.tileLayer('http://{s}.tile.cloudmade.com/2a821ef633ec46428cbb11db251bac65/{styleId}/256/{z}/{x}/{y}.png', {
-        styleId: 999,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-        maxZoom: 18
-    }).addTo(map);
+    var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/2a821ef633ec46428cbb11db251bac65/{styleId}/256/{z}/{x}/{y}.png',
+        cloudmadeAttribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>';
+
+    var minimal = L.tileLayer(cloudmadeUrl, {styleId: 22677, attribution: cloudmadeAttribution}),
+        standard = L.tileLayer(cloudmadeUrl, {styleId: 997, attribution: cloudmadeAttribution}),
+        midnight = L.tileLayer(cloudmadeUrl, {styleId: 999, attribution: cloudmadeAttribution});
 
     // data layer
-    L.geoJson(layers[0]).addTo(map);
+    var popupContent = "FILEID: "; // feature.properties.FID
+    var stationLayer = L.geoJson(layers['stations'], {
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(popupContent + feature.properties.FID);
+        }
+    });
+
+    var map = L.map('map', {layers: [minimal, stationLayer]}).setView([52.4, 5.8], 9);
+
+    var baseMaps = {
+        "Minimal": minimal,
+        "Standard": standard,
+        "Mignight": midnight,
+        "Toner": toner
+    };
+
+    var overlayMaps = {
+        "Stations": stationLayer
+    };
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    // popups for the data layer
+    var popup = L.popup();
+    function onDataClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(map);
+    }
+    map.on('click', onDataClick);
+
 
     // jQuery UI shizzle
     $('#informationtoggle').on('click', function (e) {
@@ -46,6 +79,6 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers'], function ($, _) {
             $("#map").animate({height: '+=100', width: '+=400'});
             $("#information").toggle();
         }
-    })
+    });
 
 }); // end requirejs

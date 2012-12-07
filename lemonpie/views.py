@@ -19,8 +19,7 @@ def index():
     """index page"""
     json_data=open('lemonpie/static/js/data/stations.js','r')
     data = json.load(json_data)
-    pprint(data)
+    #pprint(data)
     json_data.close()
-    layers = [data]
-    flash('bon giorno!')
+    layers = {'stations': data}
     return render_template('index.html', layers=layers)
