@@ -5,8 +5,13 @@ Flask-WTF==0.8
 Jinja2==2.6
 WTForms==1.0.2
 Werkzeug==0.8.3
+argparse==1.2.1
 blinker==1.2
+dropbox==1.5.1
 httplib2==0.7.6
+ipdb==0.7
+ipython==0.13.1
 ordereddict==1.1
 requests==0.14.1
+wsgiref==0.1.2
 yolk==0.4.3
