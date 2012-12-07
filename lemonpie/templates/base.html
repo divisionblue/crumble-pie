@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+    <head>
+        {% block head %}
+
+        <meta charset="utf-8">
+        <title>{% block title %}Lemonpie{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- leaflet shizzle, opnemen in style.css -->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
+        <![endif]-->
+        <!-- leaflet shizzle, opnemen in require.js -->
+        <script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+               
+        <script type="text/javascript" data-main="static/js/main.js" src="static/js/require.js"></script>
+        <link rel="stylesheet" href="static/css/style.css" type="text/css">
+
+        <!-- Le styles -->
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        {% endblock %}
+    </head>   
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <h1>Suffer and crumble</h1>
+                    <p class="lead">welcome to the future</p>
+                </div>
+            </div>
+            <!-- ******** MESSAGES ******* -->
+            <div class="row">
+                <div class="span12">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert">x</button>
+                            <strong>Ok</strong> {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </div>
+            </div>
+            <!-- ******** END MESSAGES ******* -->
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>
