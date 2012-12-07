@@ -65,7 +65,7 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
             .setContent("You clicked the map at " + e.latlng.toString())
             .openOn(map);
     }
-    map.on('click', onDataClick);
+    //map.on('click', onDataClick);
 
 
     // jQuery UI shizzle
