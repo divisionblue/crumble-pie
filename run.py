@@ -7,3 +7,6 @@ def main():
     lemonpie.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     toolbar = DebugToolbarExtension(lemonpie)
     lemonpie.run('0.0.0.0')
+
+if __name__ == '__main__':
+    main()
