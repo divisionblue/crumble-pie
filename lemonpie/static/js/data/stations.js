@@ -1,4 +1,3 @@
-stations = 
 {
 "type": "FeatureCollection",
 "features": [
@@ -393,4 +392,4 @@ stations =
 { "type": "Feature", "properties": { "FID": 194.000000 }, "geometry": { "type": "Point", "coordinates": [ 4.967917, 52.346217 ] } }
 
 ]
-};
+}
