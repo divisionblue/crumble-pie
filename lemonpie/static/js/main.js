@@ -47,7 +47,7 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
     var baseMaps = {
         "Minimal": minimal,
         "Standard": standard,
-        "Mignight": midnight,
+        "Midnight": midnight,
         "Toner": toner
     };
 
@@ -71,14 +71,24 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
     // jQuery UI shizzle
     $('#informationtoggle').on('click', function (e) {
         if ($('#mapcontainer').attr('class') === 'span12') {
+            $(this).addClass('btn-primary');
             $("#mapcontainer").removeClass('span12').addClass('span8');
             $("#map").animate({height: '-=100', width: '-=400'});
             $("#information").toggle();
         } else {
+            $(this).removeClass('btn-primary');
             $("#mapcontainer").removeClass('span8').addClass('span12');
             $("#map").animate({height: '+=100', width: '+=400'});
             $("#information").toggle();
         }
+    });
+
+    $('.imgthumb').on('mouseenter', function (e) {
+        $(this).animate({width: '+=3px'});
+    });
+
+    $('.imgthumb').on('mouseleave', function (e) {
+        $(this).animate({width: '-=3px'});
     });
 
 }); // end requirejs
