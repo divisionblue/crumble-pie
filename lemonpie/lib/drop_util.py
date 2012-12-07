@@ -1,5 +1,6 @@
 import webbrowser
 import json
+import StringIO
 
 from dropbox import client, rest, session
 
@@ -14,15 +15,13 @@ class Dropbox:
     def __init__(self):
         sess = session.DropboxSession(DROP_KEY, DROP_SECRET, ACCESS_TYPE)
         request_token = sess.obtain_request_token()
+        url = sess.build_authorize_url(request_token)
         try:
-            url = sess.build_authorize_url(request_token)
-            access_token = sess.obtain_access_token(request_token)
+            access_token = sess.set_token(ACCESS_KEY, ACCESS_SECRET)
             self.client = client.DropboxClient(sess)
-            metadata = self.client.metadata('/').get('contents')
+            self.metadata = self.client.metadata('/').get('contents')
         except rest.ErrorResponse:
-            url = sess.build_authorize_url(request_token)
             webbrowser.open(url)
-            raw_input()
             access_token = sess.obtain_access_token(request_token)
             self.client = client.DropboxClient(sess)
             self.metadata = self.client.metadata('/').get('contents')
@@ -39,7 +38,6 @@ class Dropbox:
         for file_ in self.metadata:
             if file_.get('mime_type') == 'text/csv':
                 csv_file = self.client.get_file(file_.get('path'))
-                import ipdb;ipdb.set_trace()
                 csvdata = read_csv(csv_file)
         return geojson.read
 
