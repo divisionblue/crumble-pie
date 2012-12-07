@@ -9,8 +9,7 @@ long_description = '\n\n'.join([
     ])
 
 install_requires = [
-    'flask',
-    'flask-bootstrap',
+    'dropbox',
     'numpy',
     'PIL',
     'setuptools',
@@ -51,6 +50,7 @@ setup(name='crumble',
       entry_points={
           'console_scripts': [
               'runserver = crumble.main:go',
-              'runlemon = run:main',
+              'lemon = run:main',
+              'dropbox = lemonpie.lib.drop_util:main',
           ]},
       )

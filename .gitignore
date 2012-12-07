@@ -1,3 +1,9 @@
+#app-specific
+localconfig.py
+# node modules
+lemonpie/node_modules/*
+
+
 *.py[cod]
 .vagrant
 *~
@@ -34,9 +40,6 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
-
-# node modules
-lemonpie/node_modules/*
 
 # vim
 *.swp
