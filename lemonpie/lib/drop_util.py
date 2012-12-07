@@ -30,9 +30,9 @@ class Dropbox:
     def get_geojson(self):
         for file_ in self.metadata:
             if file_.get('mime_type') == 'application/javascript':
-                geojson = self.client.get_file(file_.get('path'))
-
-        return geojson.read()
+                jsonrequest = self.client.get_file(file_.get('path'))
+                geojson = json.load(jsonrequest)
+        return geojson
 
 
     def get_csv(self):
