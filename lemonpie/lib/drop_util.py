@@ -1,8 +1,10 @@
 import webbrowser
+import json
 
 from dropbox import client, rest, session
 
 from lemonpie.config import *
+from crumble.utils import read_csv
 
 class Dropbox:
     '''
@@ -26,19 +28,21 @@ class Dropbox:
             self.metadata = self.client.metadata('/').get('contents')
 
     def get_geojson(self):
-        import ipdb;ipdb.set_trace()
         for file_ in self.metadata:
             if file_.get('mime_type') == 'application/javascript':
-                geojson = self.client.get_file(file_)
+                geojson = self.client.get_file(file_.get('path'))
+
         return geojson.read()
 
 
     def get_csv(self):
         for file_ in self.metadata:
             if file_.get('mime_type') == 'text/csv':
-                geojson = self.client.get_file(file_)
-        return geojson.read()
+                csv_file = self.client.get_file(file_.get('path'))
+                import ipdb;ipdb.set_trace()
+                csvdata = read_csv(csv_file)
+        return geojson.read
 
 def main():
     drop_shiz = Dropbox()
-    geojson = drop_shiz.get_geojson()
+    geojson = drop_shiz.get_csv()
