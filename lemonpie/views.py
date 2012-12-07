@@ -16,4 +16,5 @@ def to_index():
 def index():
     """index page"""
     layers = ['None']
+    flash('bon giorno!')
     return render_template('index.html', layers=layers)

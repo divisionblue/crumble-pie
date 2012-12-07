@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
+<div class="row spacer">
+    <div id="toolbar">
+        <h1>Crumble and Suffer</h1>
+        <a id="informationtoggle" class="btn pull-right" type="button">Informations</a>
+    </div>
+</div>
+<div class="row spacer">
 <!-- ******** KAART ******* -->
-    <div class="span12">
+    <div id="mapcontainer" class="span12">
             <div id="map"></div>
+    </div>
+    <div id="information" class="span4" style="display:none">
+        <p>Informations</p>
     </div>
 </div>
 <!-- ******** END KAART ******* -->

@@ -47,6 +47,7 @@
  */
 #map {
     height: 400px;
+    width: 960px;
 }
 
 .map img {max-width:none;}

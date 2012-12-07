@@ -30,4 +30,18 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers'], function ($, _) {
         maxZoom: 18
     }).addTo(map);
 
+    // jQuery UI shizzle
+    $('#informationtoggle').on('click', function(e) {
+        console.log($('#mapcontainer').attr('class'));
+        if ($('#mapcontainer').attr('class') == 'span12') {
+            $("#mapcontainer").removeClass('span12').addClass('span8');
+            $("#map").animate({height: '-=100', width: '-=400'});
+            $("#information").toggle();
+        } else {
+            $("#mapcontainer").removeClass('span8').addClass('span12');
+            $("#map").animate({height: '+=100', width: '+=400'});
+            $("#information").toggle();
+        }
+    })
+
 }); // end requirejs
