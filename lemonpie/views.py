@@ -3,7 +3,6 @@ from flask.ext.uploads import UploadSet, configure_uploads, ARCHIVES #, UploadNo
 
 from lemonpie import lemonpie
 from lemonpie.lib import drop_util
-#from lib import dropbox
 #from forms import
 
 # file upload settings
