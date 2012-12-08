@@ -21,9 +21,10 @@ class Dropbox:
             access_token = sess.set_token(ACCESS_KEY, ACCESS_SECRET)
             self.client = client.DropboxClient(sess)
             self.metadata = self.client.metadata('/').get('contents')
+            print self.metadata
         except rest.ErrorResponse:
             webbrowser.open(url)
-            import ipdb; ipdb.set_trace()
+            #import ipdb; ipdb.set_trace()
             access_token = sess.obtain_access_token(request_token)
             self.client = client.DropboxClient(sess)
             self.metadata = self.client.metadata('/').get('contents')
