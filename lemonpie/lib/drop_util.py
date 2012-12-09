@@ -20,7 +20,8 @@ class Dropbox:
         try:
             access_token = sess.set_token(ACCESS_KEY, ACCESS_SECRET)
             self.client = client.DropboxClient(sess)
-            self.metadata = self.client.metadata('/').get('contents')
+            #self.metadata = self.client.metadata('/').get('contents')
+            self.metadata = self.client.metadata('/lemonpie/').get('contents')
         except rest.ErrorResponse:
             webbrowser.open(url)
             access_token = sess.obtain_access_token(request_token)
@@ -34,7 +35,7 @@ class Dropbox:
             if file_.get('mime_type') == 'application/javascript':
                 jsonrequest = self.client.get_file(file_.get('path'))
                 geojson = json.load(jsonrequest)
-                filename = file_.get('path').replace('/','').split('.')[0] #NOTE get the basename properly
+                filename = file_.get('path').split('/')[-1].split('.')[0] #NOTE get the basename properly
                 geojsonfiles[filename] = {'data': geojson, 'metadata': file_}
         return geojsonfiles
 

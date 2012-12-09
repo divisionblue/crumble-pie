@@ -15,6 +15,10 @@
  * Boostrap overrides / additions
  */
 
+.imgthumb:hover {
+    opacity: 0.7;
+}
+
 .nav li.disabled a {
     color: #999;
     pointer-events: none;
