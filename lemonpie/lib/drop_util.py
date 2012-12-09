@@ -21,7 +21,6 @@ class Dropbox:
             access_token = sess.set_token(ACCESS_KEY, ACCESS_SECRET)
             self.client = client.DropboxClient(sess)
             self.metadata = self.client.metadata('/').get('contents')
-            print self.metadata
         except rest.ErrorResponse:
             webbrowser.open(url)
             #import ipdb; ipdb.set_trace()
@@ -31,11 +30,14 @@ class Dropbox:
 
     def get_geojson(self):
         '''read geojson files and return geojson'''
+        geojsonfiles = {}
         for file_ in self.metadata:
             if file_.get('mime_type') == 'application/javascript':
                 jsonrequest = self.client.get_file(file_.get('path'))
                 geojson = json.load(jsonrequest)
-        return geojson
+                filename = file_.get('path').replace('/','').split('.')[0] #NOTE get the basename properly
+                geojsonfiles[filename] = {'data': geojson, 'metadata': file_}
+        return geojsonfiles
 
 
     def get_csv(self):

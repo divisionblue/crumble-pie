@@ -12,23 +12,23 @@ configure_uploads(lemonpie, uploaded_files)
 def to_index():
     return redirect(url_for('index'))
 
-def read_dropbox_json():
-    #json_data = open('lemonpie/static/js/data/stations.js','r')
-    #data = json.load(json_data)
-    #pprint(data)
-    #json_data.close()
-    #import ipdb; ipdb.set_trace()
+@lemonpie.route('/dropbox_geojson', methods=['GET'])
+def dropbox_get_json():
     db = drop_util.Dropbox()
-    geojson = db.get_geojson()
-    return geojson
+    geojsonfiles = db.get_geojson()
+    print geojsonfiles
+    return geojsonfiles
 
 @lemonpie.route('/')
 def index():
     """index page"""
-    data = ''
+    layers = {}
     try:
-        data = read_dropbox_json()
+        geojsonfiles = dropbox_get_json()
+        print geojsonfiles
+        for name, geojson in geojsonfiles.iteritems():
+            print(name, geojson['metadata'])
+            layers = {name: geojson['data']}
     except:
         flash('Reading dropbox failed')
-    layers = {'stations': data}
     return render_template('index.html', layers=layers)
