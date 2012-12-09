@@ -84,9 +84,11 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
     });
 
     $('.imgthumb').on('mouseenter', function (e) {
-        var storyid = $(this).attr('class').split(/\s+/)[1];
-        $('.storytext').hide();
-        $('#' + storyid).show();
+        $(this).animate({width: '+=3px'});
+    });
+
+    $('.imgthumb').on('mouseleave', function (e) {
+        $(this).animate({width: '-=3px'});
     });
 
 }); // end requirejs
