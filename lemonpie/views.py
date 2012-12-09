@@ -27,8 +27,7 @@ def index():
         geojsonfiles = dropbox_get_json()
         print geojsonfiles
         for name, geojson in geojsonfiles.iteritems():
-            print(name, geojson['metadata'])
             layers = {name: geojson['data']}
     except:
         flash('Reading dropbox failed')
-    return render_template('index.html', layers=layers)
+    return render_template('index.html', layers=geojsonfiles)

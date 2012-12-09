@@ -60,9 +60,13 @@
     </div>
     <div id="information" class="span4" style="display:none">
         <h2>Available Layers</h2>
-        {% for layername, data in layers.iteritems() %}
-        <h3>{{ layername }} </h3> <br />
-        <p>{{ data }}</p>
+        {% for layername in layers %}
+        <h3>{{ layername }} </h3>
+        <dl class="dl-horizontal">
+            {% for key, value in layers[layername]['metadata'].iteritems() %}
+            <dt>{{ key }}:</dt><dd> {{ value }}</dd>
+            {% endfor %}
+        </dl>
         {% endfor %}
     </div>
 </div>
