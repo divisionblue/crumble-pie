@@ -23,7 +23,6 @@ class Dropbox:
             self.metadata = self.client.metadata('/').get('contents')
         except rest.ErrorResponse:
             webbrowser.open(url)
-            #import ipdb; ipdb.set_trace()
             access_token = sess.obtain_access_token(request_token)
             self.client = client.DropboxClient(sess)
             self.metadata = self.client.metadata('/').get('contents')

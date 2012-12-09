@@ -16,19 +16,13 @@ def to_index():
 def dropbox_get_json():
     db = drop_util.Dropbox()
     geojsonfiles = db.get_geojson()
-    print geojsonfiles
     return geojsonfiles
 
 @lemonpie.route('/')
 def index():
     """index page"""
-    layers = {}
     try:
         geojsonfiles = dropbox_get_json()
-        print geojsonfiles
-        for name, geojson in geojsonfiles.iteritems():
-            print(name, geojson['metadata'])
-            layers = {name: geojson['data']}
     except:
         flash('Reading dropbox failed')
-    return render_template('index.html', layers=layers)
+    return render_template('index.html', layers=geojsonfiles)

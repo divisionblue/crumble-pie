@@ -36,7 +36,7 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
 
     // data layer
     var popupContent = "FILEID: "; // feature.properties.FID
-    var stationLayer = L.geoJson(layers['stations'], {
+    var stationLayer = L.geoJson(layers['stations']['data'], {
         onEachFeature: function (feature, layer) {
             layer.bindPopup(popupContent + feature.properties.FID);
         }
