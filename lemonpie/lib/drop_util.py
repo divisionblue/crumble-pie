@@ -1,6 +1,6 @@
 import webbrowser
 import json
-#import StringIO
+import StringIO
 
 from dropbox import client, rest, session
 
@@ -45,7 +45,8 @@ class Dropbox:
         for file_ in self.metadata:
             if file_.get('mime_type') == 'text/csv':
                 csv_file = self.client.get_file(file_.get('path'))
-                csvdata = read_csv(csv_file)
+                csv_string = StringIO.StringIO(csv_file.read())
+                csvdata = read_csv(csv_string)
         return csvdata
 
 def main():
