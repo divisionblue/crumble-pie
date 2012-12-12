@@ -12,21 +12,21 @@ class Dropbox:
     Initialize a Dropbox session. With the dropbox session
     it is possible to get data from the App specific folder.
     '''
-    def __init__(self):
+    def __init__(self, folder=''):
         '''initialise class'''
+        self.folder = folder
         sess = session.DropboxSession(DROP_KEY, DROP_SECRET, ACCESS_TYPE)
         request_token = sess.obtain_request_token()
         url = sess.build_authorize_url(request_token)
         try:
             access_token = sess.set_token(ACCESS_KEY, ACCESS_SECRET)
             self.client = client.DropboxClient(sess)
-            #self.metadata = self.client.metadata('/').get('contents')
-            self.metadata = self.client.metadata('/lemonpie/').get('contents')
+            self.metadata = self.client.metadata(self.folder).get('contents')
         except rest.ErrorResponse:
             webbrowser.open(url)
             access_token = sess.obtain_access_token(request_token)
             self.client = client.DropboxClient(sess)
-            self.metadata = self.client.metadata('/').get('contents')
+            self.metadata = self.client.metadata(self.folder).get('contents')
 
     def get_geojson(self):
         '''read geojson files and return geojson'''
