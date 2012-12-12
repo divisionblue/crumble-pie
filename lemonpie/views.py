@@ -36,7 +36,7 @@ def map(folder):
     """map geojson from dropbox folder"""
     geojsonfiles = {}
     try:
-        geojsonfiles = dropbox_get_json('lemonpie', False)
+        geojsonfiles = dropbox_get_json(folder, False)
     except:
         flash('Reading dropbox failed')
     return render_template('map.html', layers=geojsonfiles)

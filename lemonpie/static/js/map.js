@@ -18,11 +18,10 @@ requirejs.config({
 require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function ($, _) {
 
     layers = jQuery.parseJSON(layers);
-    var layer = null;
 
-    for (layer in layers) {
-        console.log(layer, layers[layer]);
-    }
+    //for (layer in layers) {
+    //    console.log(layer, layers[layer]);
+    //}
 
     // stamen maps
     var toner = new L.StamenTileLayer("toner-lite");
@@ -34,16 +33,6 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
         standard = L.tileLayer(cloudmadeUrl, {styleId: 997, attribution: cloudmadeAttribution}),
         midnight = L.tileLayer(cloudmadeUrl, {styleId: 999, attribution: cloudmadeAttribution});
 
-    // data layer
-    var popupContent = "FILEID: "; // feature.properties.FID
-    var stationLayer = L.geoJson(layers['stations']['data'], {
-        onEachFeature: function (feature, layer) {
-            layer.bindPopup(popupContent + feature.properties.FID);
-        }
-    });
-
-    var map = L.map('map', {layers: [minimal, stationLayer]}).setView([52.4, 5.8], 9);
-
     var baseMaps = {
         "Minimal": minimal,
         "Standard": standard,
@@ -51,9 +40,29 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
         "Toner": toner
     };
 
-    var overlayMaps = {
-        "Stations": stationLayer
-    };
+    var overlayMaps = {}, popupContent = '';
+    // data layer
+    var addUserLayers = function (layers) {
+        var i = 0, userLayers = [], layer;
+        for (layer in layers) {
+            console.log(layer);
+            popupContent = "FILEID: "; // feature.properties.FID
+            userLayers[i] = L.geoJson(layers[layer].data, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(popupContent + feature.properties.FID);
+                }
+            });
+
+            overlayMaps[layer] = userLayers[i];
+        }
+        return [userLayers, overlayMaps];
+    }
+    
+    var userMaps = addUserLayers(layers);
+    var userLayers = userMaps[0];
+    var overlayMaps = userMaps[1];
+
+    var map = L.map('map', {layers: [minimal]}).setView([52.4, 5.8], 9);
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);
 
