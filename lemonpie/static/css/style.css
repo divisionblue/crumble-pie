@@ -41,8 +41,13 @@
 /* 
  * Openlayers styles
  */
+#landingmap {
+    height: 300px;
+    width: 940px;
+}
+
 #map {
-    height: 400px;
+    height: 512px;
     width: 940px;
 }
 

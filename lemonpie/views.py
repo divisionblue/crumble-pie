@@ -23,10 +23,20 @@ def dropbox_get_json(folder, json=True):
 
 @lemonpie.route('/')
 def index():
-    """index page"""
+    """Landing page"""
     geojsonfiles = {}
     try:
         geojsonfiles = dropbox_get_json('lemonpie', False)
     except:
         flash('Reading dropbox failed')
     return render_template('index.html', layers=geojsonfiles)
+
+@lemonpie.route('/<folder>/map', methods=['GET'])
+def map(folder):
+    """map geojson from dropbox folder"""
+    geojsonfiles = {}
+    try:
+        geojsonfiles = dropbox_get_json('lemonpie', False)
+    except:
+        flash('Reading dropbox failed')
+    return render_template('map.html', layers=geojsonfiles)

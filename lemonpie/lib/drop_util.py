@@ -31,7 +31,11 @@ class Dropbox:
     def get_geojson(self):
         '''read geojson files and return geojson'''
         geojsonfiles = {}
-        for file_ in self.metadata:
+        for (counter, file_) in enumerate(self.metadata):
+            if counter > 5:
+                return geojsonfiles
+            #NOTE make the difference between mime types here,
+            # in the same loop, don't write a seperate method for csv
             if file_.get('mime_type') == 'application/javascript':
                 jsonrequest = self.client.get_file(file_.get('path'))
                 geojson = json.load(jsonrequest)
@@ -42,7 +46,10 @@ class Dropbox:
 
     def get_csv(self):
         '''read csv files; convert to geojson and return'''
-        for file_ in self.metadata:
+        for (counter, file_) in enumerate(self.metadata):
+            csvdata = {}
+            if counter > 5:
+                return csvdata
             if file_.get('mime_type') == 'text/csv':
                 csv_file = self.client.get_file(file_.get('path'))
                 csv_string = StringIO.StringIO(csv_file.read())

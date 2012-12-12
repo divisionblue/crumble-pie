@@ -68,12 +68,12 @@
 <!-- ******** KAART ******* -->
 <div class="row">
     <div class="span12">
-        <a id="informationtoggle" class="btn">Informations</a>
+        <a id="informationtoggle" class="btn">Layer Info</a>
     </div>
 </div>
 <div class="row spacer">
     <div id="mapcontainer" class="span12">
-            <div id="map"></div>
+            <div id="landingmap"></div>
     </div>
     <div id="information" class="span4" style="display:none">
         <h2>Available Layers</h2>
@@ -88,11 +88,57 @@
     </div>
 </div>
 <!-- ******** END KAART ******* -->
+<!-- ******** MORE HYPE ******* -->
+<div class="row spacer">
+    <div class="span4">
+        <p>PICTURE + TEXT</p>
+    </div>
+    <div class="span4">
+        <p>PICTURE + TEXT</p>
+    </div>
+    <div class="span4">
+        <p>PICTURE + TEXT</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <p>STORY 1</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <p>STORY 2</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <p>STORY 3</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <p>STORY 4</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <p>STORY 5</p>
+    </div>
+</div>
+<div class="row">
+    <div class="span12">
+        <p>STORY 6</p>
+    </div>
+</div>
+<!-- ******** END MORE HYPE ******* -->
 <div id="content-footer" class="row spacer">
     <div class="span12">
         <p class="muted">Lemonpie</p>
     </div>
 </div>
+<!-- leaflet shizzle, opnemen in require.js -->
+<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+<script type="text/javascript" data-main="static/js/main.js" src="static/js/require.js"></script>
 <script type="text/javascript">
     var layers = '{{ layers|tojson|safe }}'
 </script>
