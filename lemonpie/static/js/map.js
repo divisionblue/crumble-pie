@@ -1,6 +1,5 @@
 /*global requirejs, require, OpenLayers, jQuery, $, Raphael, stations, console  */
 /*jslint indent: 4 */
-"use strict";
 requirejs.config({
     paths: {
         'jquery' : 'lib/jquery',
@@ -16,6 +15,7 @@ requirejs.config({
     }
 });
 require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function ($, _) {
+    "use strict";
 
     layers = jQuery.parseJSON(layers);
 
@@ -42,7 +42,7 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
 
     var overlayMaps = {}, popupContent = '';
     // data layer
-    var addUserLayers = function (layers) {
+    var addUserLayers = function (layers, layerControl) {
         var i = 0, userLayers = [], layer;
         for (layer in layers) {
             console.log(layer);
@@ -52,27 +52,27 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
                     layer.bindPopup(popupContent + feature.properties.FID);
                 }
             });
-
-            overlayMaps[layer] = userLayers[i];
+            layerControl.addOverlay(userLayers[i], layer);
+            i += 1;
         }
-        return [userLayers, overlayMaps];
+        return userLayers;
     }
-    
-    var userMaps = addUserLayers(layers);
-    var userLayers = userMaps[0];
-    var overlayMaps = userMaps[1];
 
     var map = L.map('map', {layers: [minimal]}).setView([52.4, 5.8], 9);
 
-    L.control.layers(baseMaps, overlayMaps).addTo(map);
+    var layerControl = L.control.layers(baseMaps);
 
-    // popups for the data layer
-    var popup = L.popup();
-    function onDataClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
+    var currentLayers = addUserLayers(layers, layerControl);
+
+    layerControl.addTo(map);
+
+    var refreshUserLayers = function (layers) {
+        // remove current layers
+        for (var i = 0; i < currentLayers.length; i++) {
+            layerControl.removeLayer(currentLayers[i]);
+        }
+        // update control
+        currentLayers = addUserLayers(layers, layerControl);
     }
 
     // jQuery UI shizzle
@@ -88,6 +88,12 @@ require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function 
             $("#map").animate({height: '+=100', width: '+=400'});
             $("#information").toggle();
         }
+    });
+
+    $('#refreshmap').on('click', function (e) {
+        var url = window.location.origin + '/' + window.location.pathname.split('/')[1] + '/dropbox_geojson';
+        console.log(url);
+        $.getJSON(url, refreshUserLayers);    
     });
 
 }); // end requirejs
