@@ -1,6 +1,5 @@
 /*global requirejs, require, OpenLayers, jQuery, $, Raphael, stations, console  */
 /*jslint indent: 4 */
-"use strict";
 requirejs.config({
     paths: {
         'jquery' : 'lib/jquery',
@@ -16,6 +15,7 @@ requirejs.config({
     }
 });
 require(['jquery', 'underscore', 'bootstrap', 'openlayers', 'stamen'], function ($, _) {
+"use strict";
 
     layers = jQuery.parseJSON(layers);
     var layer = null;
