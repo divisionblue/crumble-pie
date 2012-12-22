@@ -1,6 +1,6 @@
 import webbrowser
 import json
-#import StringIO
+import StringIO
 
 from dropbox import client, rest, session
 
@@ -12,26 +12,30 @@ class Dropbox:
     Initialize a Dropbox session. With the dropbox session
     it is possible to get data from the App specific folder.
     '''
-    def __init__(self):
+    def __init__(self, folder=''):
         '''initialise class'''
+        self.folder = folder
         sess = session.DropboxSession(DROP_KEY, DROP_SECRET, ACCESS_TYPE)
         request_token = sess.obtain_request_token()
         url = sess.build_authorize_url(request_token)
         try:
             access_token = sess.set_token(ACCESS_KEY, ACCESS_SECRET)
             self.client = client.DropboxClient(sess)
-            #self.metadata = self.client.metadata('/').get('contents')
-            self.metadata = self.client.metadata('/lemonpie/').get('contents')
+            self.metadata = self.client.metadata(self.folder).get('contents')
         except rest.ErrorResponse:
             webbrowser.open(url)
             access_token = sess.obtain_access_token(request_token)
             self.client = client.DropboxClient(sess)
-            self.metadata = self.client.metadata('/').get('contents')
+            self.metadata = self.client.metadata(self.folder).get('contents')
 
     def get_geojson(self):
         '''read geojson files and return geojson'''
         geojsonfiles = {}
-        for file_ in self.metadata:
+        for (counter, file_) in enumerate(self.metadata):
+            if counter > 5:
+                return geojsonfiles
+            #NOTE make the difference between mime types here,
+            # in the same loop, don't write a seperate method for csv
             if file_.get('mime_type') == 'application/javascript':
                 jsonrequest = self.client.get_file(file_.get('path'))
                 geojson = json.load(jsonrequest)
@@ -42,10 +46,14 @@ class Dropbox:
 
     def get_csv(self):
         '''read csv files; convert to geojson and return'''
-        for file_ in self.metadata:
+        for (counter, file_) in enumerate(self.metadata):
+            csvdata = {}
+            if counter > 5:
+                return csvdata
             if file_.get('mime_type') == 'text/csv':
                 csv_file = self.client.get_file(file_.get('path'))
-                csvdata = read_csv(csv_file)
+                csv_string = StringIO.StringIO(csv_file.read())
+                csvdata = read_csv(csv_string)
         return csvdata
 
 def main():

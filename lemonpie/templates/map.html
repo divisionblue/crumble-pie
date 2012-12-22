@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- ******** KAART ******* -->
+<div class="row spacer">
+    <div class="span12">
+        <p> <a id="informationtoggle" class="btn">Layer Info</a> </p>
+    </div>
+</div>
+<div class="row">
+    <div id="mapcontainer" class="span12">
+            <div id="map"></div>
+    </div>
+    <div id="information" class="span4" style="display:none">
+        <h2>Available Layers</h2>
+        {% for layername in layers %}
+        <h3>{{ layername }} </h3>
+        <dl class="dl-horizontal">
+            {% for key, value in layers[layername]['metadata'].iteritems() %}
+            <dt>{{ key }}:</dt><dd> {{ value }}</dd>
+            {% endfor %}
+        </dl>
+        {% endfor %}
+    </div>
+</div>
+<!-- ******** END KAART ******* -->
+<div id="content-footer" class="row spacer">
+    <div class="span12">
+        <p class="muted">Lemonpie</p>
+    </div>
+</div>
+<!-- leaflet shizzle, opnemen in require.js -->
+<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
+<script type="text/javascript" data-main="/static/js/map.js" src="/static/js/require.js"></script>
+<script type="text/javascript">
+    var layers = '{{ layers|tojson|safe }}'
+</script>
+{% endblock %}
